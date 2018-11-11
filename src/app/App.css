@@ -1,0 +1,60 @@
+html {
+  background: #e2e1e0;
+}
+
+.App {
+  display: grid;
+  width: 80vw;
+  align-items: center;
+  justify-items: center;
+  grid-gap: 8px;
+  margin: auto;
+  margin-top: 32px;
+}
+
+.gameSettings {
+  display: grid;
+  grid-template-columns: "1fr 1fr";
+  grid-gap: 8px;
+  justify-items: center;
+  border: 1px solid blue;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: white;
+  color: blue;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+input[type="number"] {
+  width: 124px;
+  text-align: center;
+}
+
+.gameWrapper {
+  border: 1px solid #3700b3;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+p {
+  color: #3700b3;
+  font-weight: bold;
+}
+
+.wonText {
+  color: green;
+}
+
+.lostText {
+  color: red;
+}
+
+button {
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  width: 128px;
+  padding: 4px;
+  background-color: #3700b3;
+  color: #ecf0f1;
+}
