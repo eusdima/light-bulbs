@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import './App.css';
-import Bulb from './Bulb';
+import Bulb from './components/Bulb';
+import Heart from './components/Heart';
 
 // Custom hooks
 import { useGame } from './functions';
@@ -20,7 +21,7 @@ const App = () => {
       <p>The Bulb Game</p>
       {gameStarted === true ? (
         <React.Fragment className>
-          <div className="game">
+          <div className="lightBulbs">
             {gameData.bulbs.map((bulbIsActive, index) => {
               return (
                 <Bulb
@@ -31,6 +32,11 @@ const App = () => {
               );
             })}
           </div>
+          <div>
+            <Heart type={'lost'} />
+            <Heart type={'active'} />
+          </div>
+          asd
           <p
             className={`verdict ${
               gameData.winStatus === true

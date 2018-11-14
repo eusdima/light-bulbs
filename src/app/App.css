@@ -14,7 +14,7 @@ html {
 
 .gameSettings {
   display: grid;
-  grid-template-columns: "1fr 1fr";
+  grid-template-columns: '1fr 1fr';
   grid-gap: 8px;
   justify-items: center;
   border: 1px solid blue;
@@ -25,7 +25,7 @@ html {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-input[type="number"] {
+input[type='number'] {
   width: 124px;
   text-align: center;
 }
@@ -33,6 +33,31 @@ input[type="number"] {
 .gameWrapper {
   border: 1px solid #3700b3;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.lightBulbs {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid black;
+  background: #f2c530; /* Old browsers */
+  background: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    #f2c530 0%,
+    #f7ff89 99%
+  ); /* FF3.6-15 */
+  background: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    #f2c530 0%,
+    #f7ff89 99%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(
+    ellipse at center,
+    #f2c530 0%,
+    #f7ff89 99%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2c530', endColorstr='#f7ff89',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 p {
@@ -57,4 +82,12 @@ button {
   padding: 4px;
   background-color: #3700b3;
   color: #ecf0f1;
+}
+
+.bulb-svg {
+  transition: all 200ms cubic-bezier(0.38, 0.007, 0.45, 0.11);
+}
+
+.hearth-svg {
+  transition: all 200ms cubic-bezier(0.38, 0.007, 0.45, 0.11);
 }

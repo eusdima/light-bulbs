@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { emptyArrayWithValue } from "./helper";
+import { emptyArrayWithValue } from './helper';
 
 const useGame = (initialSize, initialNumOfMoves) => {
   const [size, _updateSize] = useState(initialSize);
@@ -126,7 +126,7 @@ const useGame = (initialSize, initialNumOfMoves) => {
 
   return [
     { size, numOfMoves, bulbs, movesLeft, winStatus, maxSolution },
-    { updateSize, updateNumOfMoves, updateBulb, randomize }
+    { updateSize, updateNumOfMoves, updateBulb, randomize },
   ];
 };
 

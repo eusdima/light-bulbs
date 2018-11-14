@@ -1,6 +1,6 @@
-import useGame from "./game";
+import useGame from './game';
 
 // Helper functions
-import { emptyArrayWithValue } from "./helper";
+import { emptyArrayWithValue } from './helper';
 
 export { useGame, emptyArrayWithValue };
