@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import "./App.css";
-import Bulb from "./Bulb";
+import './App.css';
+import Bulb from './Bulb';
 
 // Custom hooks
-import { useGame } from "./functions";
+import { useGame } from './functions';
 
 const App = () => {
   const [gameData, gameFunctions] = useGame(25, 4);
@@ -25,7 +25,7 @@ const App = () => {
               return (
                 <Bulb
                   key={index}
-                  active={bulbIsActive}
+                  type={bulbIsActive ? 'active' : ''}
                   onClick={() => gameFunctions.updateBulb(index)}
                 />
               );
@@ -34,10 +34,10 @@ const App = () => {
           <p
             className={`verdict ${
               gameData.winStatus === true
-                ? "wonText"
+                ? 'wonText'
                 : gameData.winStatus === false
-                ? "lostText"
-                : " "
+                ? 'lostText'
+                : ' '
             }`}
           >
             {gameData.winStatus === true
