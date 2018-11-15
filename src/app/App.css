@@ -35,33 +35,8 @@ input[type='number'] {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.lightBulbs {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid black;
-  background: #f2c530; /* Old browsers */
-  background: -moz-radial-gradient(
-    center,
-    ellipse cover,
-    #f2c530 0%,
-    #f7ff89 99%
-  ); /* FF3.6-15 */
-  background: -webkit-radial-gradient(
-    center,
-    ellipse cover,
-    #f2c530 0%,
-    #f7ff89 99%
-  ); /* Chrome10-25,Safari5.1-6 */
-  background: radial-gradient(
-    ellipse at center,
-    #f2c530 0%,
-    #f7ff89 99%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2c530', endColorstr='#f7ff89',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
-
 p {
-  color: #3700b3;
+  color: #28203b;
   font-weight: bold;
 }
 

@@ -1,20 +1,20 @@
-import React from 'react';
+import React from "react";
 
 const getFillFromType = type => {
   // TODO:refactor the types
-  if (type === 'active') {
-    return 'red';
+  if (type === "active") {
+    return "red";
   }
 
-  if (type === 'lost') {
-    return 'white';
+  if (type === "lost") {
+    return "white";
   }
-  return 'black';
+  return "black";
 };
 
 const Heart = ({ type }) => (
   <svg
-    enable-background="new 0 0 160 80"
+    enableBackground="new 0 0 160 80"
     width="48"
     height="36"
     viewBox="0 0 160 80"

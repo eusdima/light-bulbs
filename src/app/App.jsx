@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import './App.css';
-import Bulb from './components/Bulb';
-import Heart from './components/Heart';
+import "./App.css";
+import Bulb from "./components/Bulb";
+import Heart from "./components/Heart";
 
 // Custom hooks
-import { useGame } from './functions';
+import { useGame } from "./functions";
 
 const App = () => {
   const [gameData, gameFunctions] = useGame(25, 4);
@@ -13,37 +13,37 @@ const App = () => {
 
   const startGameHandler = () => {
     updateGameStarted(true);
-    gameFunctions.randomize();
+    gameFunctions.randomize(gameData.size);
   };
 
   return (
     <div className="App">
       <p>The Bulb Game</p>
       {gameStarted === true ? (
-        <React.Fragment className>
+        <React.Fragment>
           <div className="lightBulbs">
             {gameData.bulbs.map((bulbIsActive, index) => {
               return (
                 <Bulb
                   key={index}
-                  type={bulbIsActive ? 'active' : ''}
+                  type={bulbIsActive ? "active" : ""}
                   onClick={() => gameFunctions.updateBulb(index)}
                 />
               );
             })}
           </div>
           <div>
-            <Heart type={'lost'} />
-            <Heart type={'active'} />
+            <Heart type={"lost"} />
+            <Heart type={"active"} />
           </div>
           asd
           <p
             className={`verdict ${
               gameData.winStatus === true
-                ? 'wonText'
+                ? "wonText"
                 : gameData.winStatus === false
-                ? 'lostText'
-                : ' '
+                ? "lostText"
+                : " "
             }`}
           >
             {gameData.winStatus === true

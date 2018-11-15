@@ -1,32 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { emptyArrayWithValue } from './helper';
 
+const initialState = {
+  size: 25,
+  numOfMoves: 4,
+  bulbs: emptyArrayWithValue(25, false),
+  movesLeft: 4,
+  maxSolution: 4,
+  winStatus: null,
+};
+
+const useGameState = () => {
+  const [gameState, _updateGameState] = useState(initialState);
+
+  const updateSingle = (key, value) => {
+    _updateGameState({ ...gameState, [key]: value });
+  };
+
+  const updateMultiple = newStatesObject => {
+    _updateGameState({ ...gameState, ...newStatesObject });
+  };
+
+  return [gameState, { single: updateSingle, multiple: updateMultiple }];
+};
+
 const useGame = (initialSize, initialNumOfMoves) => {
-  const [size, _updateSize] = useState(initialSize);
-  const [numOfMoves, _updateNumOfMoves] = useState(initialNumOfMoves);
-
-  const [bulbs, updateBulbs] = useState(
-    emptyArrayWithValue(size),
-    false // Initial Value
-  );
-
-  const [movesLeft, _updateMovesLeft] = useState(numOfMoves);
-  const [maxSolution, _updateMaxSolution] = useState(numOfMoves);
-  const [winStatus, _updateWinStatus] = useState(null);
-
+  const [
+    { size, numOfMoves, bulbs, movesLeft, maxSolution, winStatus },
+    updateGameState,
+  ] = useGameState();
   /**
    *  Update game variables
    */
 
   const updateSize = value => {
-    _updateSize(value);
+    updateGameState.single('size', value);
     randomize(value);
   };
 
   const updateNumOfMoves = value => {
-    _updateNumOfMoves(value);
-    randomize();
+    updateGameState.single('numOfMoves', value);
+    randomize(size);
   };
 
   /**
@@ -34,12 +49,16 @@ const useGame = (initialSize, initialNumOfMoves) => {
    */
 
   const updateBulb = bulbIndex => {
+    console.log({ movesLeft, bulbs: bulbs[bulbIndex] });
     if (movesLeft > 0 && !bulbs[bulbIndex]) {
       const newBulbs = [...bulbs];
 
       newBulbs[bulbIndex] = true;
-      updateBulbs(newBulbs);
-      _updateMovesLeft(movesLeft - 1);
+
+      updateGameState.multiple({
+        bulbs: newBulbs,
+        movesLeft: movesLeft - 1,
+      });
 
       _evaluateSolution(newBulbs);
     }
@@ -50,15 +69,17 @@ const useGame = (initialSize, initialNumOfMoves) => {
    */
 
   const randomize = (newSize = size) => {
-    const newBulbs = new Array(size);
+    const newBulbs = new Array(newSize);
 
-    for (let i = 0; i < size; i++) {
+    for (let i = 0; i < newSize; i++) {
       newBulbs[i] = parseInt(Math.random() * 3) === 0;
     }
 
-    updateBulbs(newBulbs);
-    _updateMovesLeft(numOfMoves);
-    _updateWinStatus(null);
+    updateGameState.multiple({
+      bulbs: newBulbs,
+      movesLeft: numOfMoves,
+      winStatus: null,
+    });
 
     _computeMaxSolution(newBulbs);
   };
@@ -94,7 +115,7 @@ const useGame = (initialSize, initialNumOfMoves) => {
       }
     }
 
-    _updateMaxSolution(solution);
+    updateGameState.single('maxSolution', solution);
   };
 
   /**
@@ -118,9 +139,9 @@ const useGame = (initialSize, initialNumOfMoves) => {
     }
 
     if (solution === maxSolution) {
-      _updateWinStatus(true);
+      updateGameState('winStatus', true);
     } else if (movesLeft === 1) {
-      _updateWinStatus(false);
+      updateGameState('winStatus', false);
     }
   };
 
