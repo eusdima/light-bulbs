@@ -5,8 +5,20 @@ const getFillFromType = type => {
     return 'yellow';
   }
 
-  if (type === 'dynamite') {
+  if (type === 'lost') {
     return 'red';
+  }
+
+  return '';
+};
+
+const classNameFromType = type => {
+  if (type === 'won') {
+    return 'bulb-won';
+  }
+
+  if (type === 'lost') {
+    return 'bulb-lost';
   }
 
   return '';
@@ -21,7 +33,7 @@ const Bulb = ({ type, onClick }) => {
       height="24"
       viewBox="0 0 24 24"
       fill={getFillFromType(type)}
-      className="bulb-svg"
+      className={`bulb-svg ${classNameFromType(type)}`}
     >
       <path
         stroke="gray"

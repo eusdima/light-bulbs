@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useReducer } from 'react';
 
 import { emptyArrayWithValue } from './helper';
 
@@ -11,25 +11,50 @@ const initialState = {
   winStatus: null,
 };
 
-const useGameState = () => {
-  const [gameState, _updateGameState] = useState(initialState);
+const gameReducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_SINGLE':
+      const { key, value } = action.payload;
 
-  const updateSingle = (key, value) => {
-    _updateGameState({ ...gameState, [key]: value });
-  };
+      return { ...state, [key]: value };
+    case 'UPDATE_MULTIPLE':
+      const newStateObject = action.payload;
 
-  const updateMultiple = newStatesObject => {
-    _updateGameState({ ...gameState, ...newStatesObject });
-  };
-
-  return [gameState, { single: updateSingle, multiple: updateMultiple }];
+      return { ...state, ...newStateObject };
+    default:
+      return state;
+  }
 };
 
-const useGame = (initialSize, initialNumOfMoves) => {
+const actionTypes = {
+  updateSingle: (key, value) => ({
+    type: 'UPDATE_SINGLE',
+    payload: { key, value },
+  }),
+  updateMultiple: newStateObject => ({
+    type: 'UPDATE_MULTIPLE',
+    payload: newStateObject,
+  }),
+};
+
+const useGameState = () => {
+  const [gameState, dispatch] = useReducer(gameReducer, initialState);
+
+  const actions = {
+    single: (key, value) => dispatch(actionTypes.updateSingle(key, value)),
+    multiple: newStateObject =>
+      dispatch(actionTypes.updateMultiple(newStateObject)),
+  };
+
+  return [gameState, actions];
+};
+
+const useGame = () => {
   const [
     { size, numOfMoves, bulbs, movesLeft, maxSolution, winStatus },
     updateGameState,
-  ] = useGameState();
+  ] = useGameState(initialState);
+
   /**
    *  Update game variables
    */
@@ -49,7 +74,6 @@ const useGame = (initialSize, initialNumOfMoves) => {
    */
 
   const updateBulb = bulbIndex => {
-    console.log({ movesLeft, bulbs: bulbs[bulbIndex] });
     if (movesLeft > 0 && !bulbs[bulbIndex]) {
       const newBulbs = [...bulbs];
 
@@ -75,6 +99,7 @@ const useGame = (initialSize, initialNumOfMoves) => {
       newBulbs[i] = parseInt(Math.random() * 3) === 0;
     }
 
+    updateGameState.single('bulbs', newBulbs);
     updateGameState.multiple({
       bulbs: newBulbs,
       movesLeft: numOfMoves,
@@ -139,9 +164,9 @@ const useGame = (initialSize, initialNumOfMoves) => {
     }
 
     if (solution === maxSolution) {
-      updateGameState('winStatus', true);
+      updateGameState.single('winStatus', true);
     } else if (movesLeft === 1) {
-      updateGameState('winStatus', false);
+      updateGameState.single('winStatus', false);
     }
   };
 
